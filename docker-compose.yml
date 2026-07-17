@@ -1,0 +1,25 @@
+services:
+  flask:
+    build: .
+    ports:
+      - "5001:5000"
+    env_file:
+      - .env
+    depends_on:
+      - db
+
+  db:
+    container_name: "db"
+    image: postgres:15-alpine
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_DB: link_shortener
+      POSTGRES_PASSWORD: Postgre123987
+      POSTGRES_USER: postgres
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
+
